@@ -7,10 +7,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const dbURI = 'mongodb://127.0.0.1:27017/car_booking_db'; 
-mongoose.connect(dbURI)
-  .then(() => console.log('✅ Đã kết nối MongoDB!'))
-  .catch((err) => console.log('❌ Lỗi kết nối DB', err));
+// 1. Chế độ Local (Dùng khi test Android Studio mà không có mạng)
+// const mongoURI = "mongodb://localhost:27017/car_maintenance";
+
+// 2. Chế độ Online (Dùng để nộp bài và chạy APK thật - KHÔNG ẢNH HƯỞNG GÌ ĐẾN ANDROID STUDIO)
+const mongoURI = "mongodb+srv://ducnamle432_db_user:asOqRsQj0aZFbHFW@cluster0.5jsal0c.mongodb.net/car_maintenance?retryWrites=true&w=majority";
+
+mongoose.connect(mongoURI)
+  .then(() => console.log("🚀 Đã len duoc cloud!"))
+  .catch(err => console.error("❌ Lỗi kết nối:", err));
 
 const bookingSchema = new mongoose.Schema({
   phone: { type: String },

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Alert, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, Platform } from "react-native";
 
-
-const API_URL = "http://192.168.1.116:3000/api";
+const API_URL = "http://10.0.2.2:3000/api";
 const SERVICES_LIST = ["Thay Dầu Nhớt", "Rửa Xe Toàn Diện", "Bảo Dưỡng Tổng Quát"];
 
 export default function App() {
@@ -189,33 +188,39 @@ export default function App() {
   // --- MÀN ĐĂNG NHẬP / ĐĂNG KÝ ---
   if (!isLoggedIn) {
     return (
-      <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.loginContainer}>
-          <Text style={styles.title}>Bảo Dưỡng Xe</Text>
-          <Text style={styles.subtitle}>{isLoginMode ? "Đăng nhập" : "Đăng ký thông tin"}</Text>
-          
-          <TextInput placeholder="Số điện thoại" placeholderTextColor="#888" style={styles.input} keyboardType="phone-pad" value={authPhone} onChangeText={setAuthPhone} />
-          <TextInput placeholder="Mật khẩu" placeholderTextColor="#888" style={styles.input} secureTextEntry value={authPassword} onChangeText={setAuthPassword} />
-          
-          {!isLoginMode && (
-            <>
-              <TextInput placeholder="Họ và Tên (VD: Nguyễn Văn A)" placeholderTextColor="#888" style={styles.input} value={authName} onChangeText={setAuthName} />
-              <TextInput placeholder="Ngày sinh (DD/MM/YYYY)" placeholderTextColor="#888" style={styles.input} value={authDob} onChangeText={setAuthDob} />
-              <TextInput placeholder="Thành phố (VD: Hà Nội)" placeholderTextColor="#888" style={styles.input} value={authCity} onChangeText={setAuthCity} />
-              <TextInput placeholder="Email" placeholderTextColor="#888" style={styles.input} keyboardType="email-address" value={authEmail} onChangeText={setAuthEmail} />
-            </>
-          )}
+      <KeyboardAvoidingView 
+        style={{ flex: 1 }} 
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <View style={styles.container}>
+          <ScrollView contentContainerStyle={styles.loginContainer} keyboardShouldPersistTaps="handled">
+            <Text style={styles.title}>Bảo Dưỡng Xe</Text>
+            <Text style={styles.subtitle}>{isLoginMode ? "Đăng nhập" : "Đăng ký thông tin"}</Text>
+            
+            <TextInput placeholder="Số điện thoại" placeholderTextColor="#888" style={styles.input} keyboardType="phone-pad" value={authPhone} onChangeText={setAuthPhone} />
+            <TextInput placeholder="Mật khẩu" placeholderTextColor="#888" style={styles.input} secureTextEntry value={authPassword} onChangeText={setAuthPassword} />
+            
+            {/* FORM MỞ RỘNG KHI ĐĂNG KÝ */}
+            {!isLoginMode && (
+              <>
+                <TextInput placeholder="Họ và Tên (VD: Nguyễn Văn A)" placeholderTextColor="#888" style={styles.input} value={authName} onChangeText={setAuthName} />
+                <TextInput placeholder="Ngày sinh (DD/MM/YYYY)" placeholderTextColor="#888" style={styles.input} value={authDob} onChangeText={setAuthDob} />
+                <TextInput placeholder="Thành phố (VD: Hà Nội)" placeholderTextColor="#888" style={styles.input} value={authCity} onChangeText={setAuthCity} />
+                <TextInput placeholder="Email" placeholderTextColor="#888" style={styles.input} keyboardType="email-address" value={authEmail} onChangeText={setAuthEmail} />
+              </>
+            )}
 
-          <TouchableOpacity style={styles.primaryButton} onPress={handleAuth}>
-            <Text style={styles.buttonText}>{isLoginMode ? "ĐĂNG NHẬP" : "ĐĂNG KÝ"}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setIsLoginMode(!isLoginMode)} style={{ marginTop: 20 }}>
-            <Text style={{ color: "#ff8c42", textAlign: "center", fontWeight: "bold" }}>
-              {isLoginMode ? "Chưa có tài khoản? Đăng ký ngay" : "Đã có tài khoản? Đăng nhập"}
-            </Text>
-          </TouchableOpacity>
-        </ScrollView>
-      </View>
+            <TouchableOpacity style={styles.primaryButton} onPress={handleAuth}>
+              <Text style={styles.buttonText}>{isLoginMode ? "ĐĂNG NHẬP" : "ĐĂNG KÝ"}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setIsLoginMode(!isLoginMode)} style={{ marginTop: 20 }}>
+              <Text style={{ color: "#ff8c42", textAlign: "center", fontWeight: "bold" }}>
+                {isLoginMode ? "Chưa có tài khoản? Đăng ký ngay" : "Đã có tài khoản? Đăng nhập"}
+              </Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 
@@ -388,8 +393,7 @@ const styles = StyleSheet.create({
   primaryButton: { backgroundColor: "#ff8c42", padding: 15, borderRadius: 8, alignItems: "center", marginTop: 10 },
   buttonText: { color: "white", fontWeight: "bold", fontSize: 16 },
   statusBadge: { alignSelf: "flex-start", color: "white", paddingHorizontal: 10, paddingVertical: 5, borderRadius: 5, fontSize: 12, fontWeight: "bold", marginTop: 10 },
-  bottomNav: { flexDirection: "row", backgroundColor: "white", borderTopWidth: 1, borderTopColor: "#eee", paddingVertical: 10 },
-  navItem: { flex: 1, alignItems: "center", paddingVertical: 10 },
+  bottomNav: { flexDirection: "row", backgroundColor: "white", borderTopWidth: 1, borderTopColor: "#eee", paddingTop: 10, paddingBottom: 30 },  navItem: { flex: 1, alignItems: "center", paddingVertical: 10 },
   navText: { color: "#888", fontWeight: "bold" },
   navTextActive: { color: "#ff8c42" },
   adminBtn: { flex: 1, padding: 10, borderRadius: 5, alignItems: 'center' },

@@ -1,0 +1,46 @@
+# ========================
+# Chung (Cho cả Backend & Frontend)
+# ========================
+# Thư viện
+node_modules/
+
+# Environment variables (File chứa biến môi trường, bảo mật)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Trình soạn thảo (VS Code)
+.vscode/
+.idea/
+
+# Hệ điều hành
+.DS_Store
+Thumbs.db
+
+# ========================
+# Frontend (Expo / React Native)
+# ========================
+# Expo
+.expo/
+dist/
+web-build/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+
+# Các thư mục build của iOS và Android (Nếu sau này bạn eject/prebuild)
+/car_maintainance_app/ios/Pods/
+/car_maintainance_app/ios/build/
+/car_maintainance_app/android/.gradle/
+/car_maintainance_app/android/app/build/
+/car_maintainance_app/android/build/

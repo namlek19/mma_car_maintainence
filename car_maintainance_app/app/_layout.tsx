@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, Platform } from "react-native";
 
-const API_URL = "http://10.0.2.2:3000/api";
+
+
+//  Android Studio (Local)
+// const API_URL = "http://10.0.2.2:3000/api"; 
+
+//  up APKPure
+const API_URL = "https://car-maintenance-api-nam.onrender.com/api";
+
+
 const SERVICES_LIST = ["Thay Dầu Nhớt", "Rửa Xe Toàn Diện", "Bảo Dưỡng Tổng Quát"];
 
 export default function App() {
